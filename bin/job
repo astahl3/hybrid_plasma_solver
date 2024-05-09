@@ -1,0 +1,37 @@
+#!/bin/bash
+#SBATCH -A gts-gevenbly3-fy20phase3
+#SBATCH -N 8 --ntasks-per-node=24
+#SBATCH --mem-per-cpu=10G
+#SBATCH -t200:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=astahl3@gatech.edu
+#SBATCH -oReport-%j.out
+#SBATCH -Jgit_test
+
+NCORES=`cat $PBS_NODEFILE | wc -l`
+NNODES=`uniq $PBS_NODEFILE | wc -l`
+cd $SLURM_SUBMIT_DIR
+cat $PBS_NODEFILE
+
+
+# module load tac/7.2.2
+# module load use.own
+# module load ddt
+
+# gts-gevenbly3
+# gts-gevenbly3-fy20phase3
+# gts-ssimon32
+# gts-ssimon32-atlas
+
+
+#module purge
+#module load gcc/4.9.0 mvapich2/2.1
+#module load impi/5.0.1.035
+module load pace-slurm
+module load intel
+module load openmpi
+#module load gcc/10.3.0
+#module load gcc-compatibility/10.3.0
+#module load mvapich2/2.3.6
+
+srun ./aikef_mpi
